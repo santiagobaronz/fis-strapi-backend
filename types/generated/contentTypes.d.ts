@@ -362,214 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiOrderOrder extends Schema.CollectionType {
-  collectionName: 'orders';
-  info: {
-    singularName: 'order';
-    pluralName: 'orders';
-    displayName: 'Order';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    clientId: Attribute.Relation<
-      'api::order.order',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    basePrice: Attribute.Decimal &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      >;
-    tax: Attribute.Decimal &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      >;
-    totalPrice: Attribute.Decimal &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      >;
-    paymentMethod: Attribute.Enumeration<
-      ['payment-gateway', 'bank-transfer', 'on-delivery']
-    > &
-      Attribute.Required;
-    status: Attribute.Enumeration<['Paid', 'Unpaid', 'Pending']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'Pending'>;
-    paidAt: Attribute.DateTime;
-    order_products: Attribute.Relation<
-      'api::order.order',
-      'oneToMany',
-      'api::order-product.order-product'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::order.order',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::order.order',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiOrderProductOrderProduct extends Schema.CollectionType {
-  collectionName: 'order_products';
-  info: {
-    singularName: 'order-product';
-    pluralName: 'order-products';
-    displayName: 'Order Product';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    order: Attribute.Relation<
-      'api::order-product.order-product',
-      'manyToOne',
-      'api::order.order'
-    >;
-    t_shirt: Attribute.Relation<
-      'api::order-product.order-product',
-      'oneToOne',
-      'api::t-shirt.t-shirt'
-    >;
-    stamp: Attribute.Relation<
-      'api::order-product.order-product',
-      'oneToOne',
-      'api::stamp.stamp'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::order-product.order-product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::order-product.order-product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiStampStamp extends Schema.CollectionType {
-  collectionName: 'stamps';
-  info: {
-    singularName: 'stamp';
-    pluralName: 'stamps';
-    displayName: 'Stamp';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    description: Attribute.String & Attribute.Required;
-    rating: Attribute.Decimal &
-      Attribute.SetMinMax<
-        {
-          min: 0;
-          max: 5;
-        },
-        number
-      >;
-    image: Attribute.Media<'images'> & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::stamp.stamp',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::stamp.stamp',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiTShirtTShirt extends Schema.CollectionType {
-  collectionName: 't_shirts';
-  info: {
-    singularName: 't-shirt';
-    pluralName: 't-shirts';
-    displayName: 'T-shirt';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    base_price: Attribute.Decimal &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Attribute.DefaultTo<0>;
-    slug: Attribute.UID<'api::t-shirt.t-shirt', 'name'>;
-    sizes: Attribute.JSON;
-    colors: Attribute.JSON;
-    is_available: Attribute.Boolean &
-      Attribute.Required &
-      Attribute.DefaultTo<true>;
-    is_active: Attribute.Boolean & Attribute.DefaultTo<true>;
-    material: Attribute.Enumeration<
-      ['Cotton', 'Linen', 'Polyester', 'Silk', 'Wool', 'Satin']
-    > &
-      Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::t-shirt.t-shirt',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::t-shirt.t-shirt',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -1007,6 +799,214 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiOrderOrder extends Schema.CollectionType {
+  collectionName: 'orders';
+  info: {
+    singularName: 'order';
+    pluralName: 'orders';
+    displayName: 'Order';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    clientId: Attribute.Relation<
+      'api::order.order',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    basePrice: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    tax: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    totalPrice: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    paymentMethod: Attribute.Enumeration<
+      ['payment-gateway', 'bank-transfer', 'on-delivery']
+    > &
+      Attribute.Required;
+    status: Attribute.Enumeration<['Paid', 'Unpaid', 'Pending']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'Pending'>;
+    paidAt: Attribute.DateTime;
+    order_products: Attribute.Relation<
+      'api::order.order',
+      'oneToMany',
+      'api::order-product.order-product'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOrderProductOrderProduct extends Schema.CollectionType {
+  collectionName: 'order_products';
+  info: {
+    singularName: 'order-product';
+    pluralName: 'order-products';
+    displayName: 'Order Product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    order: Attribute.Relation<
+      'api::order-product.order-product',
+      'manyToOne',
+      'api::order.order'
+    >;
+    t_shirt: Attribute.Relation<
+      'api::order-product.order-product',
+      'oneToOne',
+      'api::t-shirt.t-shirt'
+    >;
+    stamp: Attribute.Relation<
+      'api::order-product.order-product',
+      'oneToOne',
+      'api::stamp.stamp'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::order-product.order-product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::order-product.order-product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiStampStamp extends Schema.CollectionType {
+  collectionName: 'stamps';
+  info: {
+    singularName: 'stamp';
+    pluralName: 'stamps';
+    displayName: 'Stamp';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.String & Attribute.Required;
+    rating: Attribute.Decimal &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+          max: 5;
+        },
+        number
+      >;
+    image: Attribute.Media<'images'> & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::stamp.stamp',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::stamp.stamp',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTShirtTShirt extends Schema.CollectionType {
+  collectionName: 't_shirts';
+  info: {
+    singularName: 't-shirt';
+    pluralName: 't-shirts';
+    displayName: 'T-shirt';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    base_price: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    slug: Attribute.UID<'api::t-shirt.t-shirt', 'name'>;
+    sizes: Attribute.JSON;
+    colors: Attribute.JSON;
+    is_available: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<true>;
+    is_active: Attribute.Boolean & Attribute.DefaultTo<true>;
+    material: Attribute.Enumeration<
+      ['Cotton', 'Linen', 'Polyester', 'Silk', 'Wool', 'Satin']
+    > &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::t-shirt.t-shirt',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::t-shirt.t-shirt',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1017,10 +1017,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::order.order': ApiOrderOrder;
-      'api::order-product.order-product': ApiOrderProductOrderProduct;
-      'api::stamp.stamp': ApiStampStamp;
-      'api::t-shirt.t-shirt': ApiTShirtTShirt;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -1029,6 +1025,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::order.order': ApiOrderOrder;
+      'api::order-product.order-product': ApiOrderProductOrderProduct;
+      'api::stamp.stamp': ApiStampStamp;
+      'api::t-shirt.t-shirt': ApiTShirtTShirt;
     }
   }
 }
