@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "order_products",
+  "info": {
+    "singularName": "order-product",
+    "pluralName": "order-products",
+    "displayName": "Order Product"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "order": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::order.order",
+      "inversedBy": "order_products"
+    },
+    "t_shirt": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::t-shirt.t-shirt"
+    },
+    "stamp": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::stamp.stamp"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "t_shirts",
+  "info": {
+    "singularName": "t-shirt",
+    "pluralName": "t-shirts",
+    "displayName": "T-shirt",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "base_price": {
+      "type": "decimal",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": false
+    },
+    "sizes": {
+      "type": "json"
+    },
+    "colors": {
+      "type": "json"
+    },
+    "is_available": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "material": {
+      "type": "enumeration",
+      "enum": [
+        "Cotton",
+        "Linen",
+        "Polyester",
+        "Silk",
+        "Wool",
+        "Satin"
+      ],
+      "required": true
+    }
+  }
+}
