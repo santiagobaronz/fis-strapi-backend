@@ -552,6 +552,7 @@ export interface ApiTShirtTShirt extends Schema.CollectionType {
       ['Cotton', 'Linen', 'Polyester', 'Silk', 'Wool', 'Satin']
     > &
       Attribute.Required;
+    image: Attribute.Media<'images'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
