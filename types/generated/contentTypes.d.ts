@@ -553,6 +553,14 @@ export interface ApiTShirtTShirt extends Schema.CollectionType {
     > &
       Attribute.Required;
     image: Attribute.Media<'images'> & Attribute.Required;
+    stock: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
